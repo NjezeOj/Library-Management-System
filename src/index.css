@@ -15,3 +15,12 @@ code {
 .wrapper{
   background-color: blue;
 }
+
+.background{
+  height: 100vh;
+  width: 10000vh;
+}
+
+.bast{
+  margin-left: 10rem;
+}

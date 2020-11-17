@@ -93576,3 +93576,12 @@ video {
     animation: bounce 1s infinite;
   }
 }
+
+
+#sidenav li{
+  display: block;
+  padding-top: 10px;
+  
+}
+
+
