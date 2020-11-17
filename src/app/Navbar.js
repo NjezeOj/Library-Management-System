@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom"
 
 
-export const Navbar = () => {
-    
+export const Navbar = () => {    
     return(
         <nav class=" text-white h-full bg-teal-400 fixed top-0 left-0 overflow-x-hidden w-40">
             <div id="sidenav" class="flex flex-col items-center">
@@ -17,7 +16,10 @@ export const Navbar = () => {
                             <Link to="/registercategory">Register Category</Link>
                         </li>
                         <li>
-                            <Link>Register Book</Link>
+                            <Link to="/policy">Book Lending Policy</Link>
+                        </li>
+                        <li>
+                            <Link to="/registerbook">Register Book</Link>
                         </li>
                         <li>
                             <Link>Lend Book</Link>

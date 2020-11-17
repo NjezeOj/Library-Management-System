@@ -4,6 +4,8 @@ import { Navbar } from './app/Navbar'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {CategoryPage} from "./features/category/CategoryPage"
 import {HomePage} from "./features/HomePage"
+import {BookLending} from "./features/booklending/BookLending"
+import {Books} from "./features/books/Books"
 
 function App() {
   return (   
@@ -15,6 +17,8 @@ function App() {
 
         <Route exact path="/" component={HomePage} />
         <Route exact path="/registercategory" component={CategoryPage} />
+        <Route exact path="/policy" component={BookLending} />
+        <Route exact path="/registerbook" component={Books} />
       </Switch>      
     </Router>
     
