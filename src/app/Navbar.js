@@ -22,10 +22,7 @@ export const Navbar = () => {
                             <Link to="/registerbook">Register Book</Link>
                         </li>
                         <li>
-                            <Link>Lend Book</Link>
-                        </li>
-                        <li>
-                            <Link>Return Book</Link>
+                            <Link to="/lendreturn">Lend/Return Book</Link>
                         </li>
                         <li>
                             <Link>Borrowed Book Log</Link>

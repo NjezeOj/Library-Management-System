@@ -21,3 +21,6 @@ code {
   width: 10000vh;
 }
 
+input:checked + svg {
+  	display: block;
+  }

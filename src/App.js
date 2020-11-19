@@ -6,6 +6,7 @@ import {CategoryPage} from "./features/category/CategoryPage"
 import {HomePage} from "./features/HomePage"
 import {BookLending} from "./features/booklending/BookLending"
 import {Books} from "./features/books/Books"
+import {LendReturn} from "./features/books/LendReturn"
 
 function App() {
   return (   
@@ -19,6 +20,8 @@ function App() {
         <Route exact path="/registercategory" component={CategoryPage} />
         <Route exact path="/policy" component={BookLending} />
         <Route exact path="/registerbook" component={Books} />
+        <Route exact path="/lendreturn" component={LendReturn} />
+        
       </Switch>      
     </Router>
     

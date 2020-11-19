@@ -705,6 +705,9 @@ module.exports = {
     },
   },
   variants: {
+    extend: {
+      backgroundColor: ['checked'],
+    },
     accessibility: ['responsive', 'focus'],
     alignContent: ['responsive'],
     alignItems: ['responsive'],

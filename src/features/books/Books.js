@@ -1,4 +1,6 @@
 import React from 'react'
+import {RegisterPopUp} from '../PopUps/RegisterPopUp'
+import Popup from 'reactjs-popup'
 
 
 export const Books = () => {
@@ -13,11 +15,18 @@ export const Books = () => {
                     </div>
                 </div>
                 <form className="ml-40 px-8 py-4 bg-gray-100 border-b-8 grid grid-cols-2  gap-4">
-                    <div>
-                        <label className="block" for="category">
+                    <div class="relative">
+                        <label class="block" for="category">
                             Category
                         </label>
-                        <input className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="category" type="text" placeholder="" />                        
+                        <select class="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="category">
+                            <option>New Mexico</option>
+                            <option>Missouri</option>
+                            <option>Texas</option>
+                        </select>
+                        <div>
+                            <svg className="text-black absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                        </div>
                     </div>
 
                     <div className="relative">
@@ -59,13 +68,13 @@ export const Books = () => {
                         </button>
                     </div>                                      
                 </form>
-
-                <button className="ml-48 mt-4 border py-1 px-4 rounded focus:outline-none inline-flex items-center">
+                <Popup modal trigger={<button className="ml-48 mt-4 border py-1 px-4 rounded focus:outline-none inline-flex items-center">
                     <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>
                     <span>Register New Book</span>
-                </button>
+                </button>}>{close => <RegisterPopUp close={close}/>}</Popup>
+                
                 
                 <div className="ml-40 bg-gray-100 py-4">
                     <div className="grid grid-cols-8 divide-x divide-gray-400">
