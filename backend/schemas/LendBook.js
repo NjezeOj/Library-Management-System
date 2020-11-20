@@ -42,7 +42,7 @@ let LendBookSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-/*
+
     lenddate: {
         type: Date,
         required: false
@@ -52,7 +52,7 @@ let LendBookSchema = mongoose.Schema({
         type: Date,
         required: true
     },
-*/
+
     hasitbeenreturned: {
         type: Boolean,
         required: false
@@ -62,12 +62,12 @@ let LendBookSchema = mongoose.Schema({
         type: Boolean,
         required: false
     },
-/*
+
     expectedreturndate: {
         type: Date,
         required: false
     },
-*/
+
     borrowertype: {
         type: String,
         required: false

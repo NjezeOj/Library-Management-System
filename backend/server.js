@@ -29,11 +29,13 @@ const bookRouter = require('./routes/book');
 const booklendingRouter = require('./routes/booklending');
 const userRouter = require('./routes/user');
 const lendbookRouter = require('./routes/lendbook');
+const categoryRouter = require('./routes/category')
 
 app.use('/book', bookRouter);
 app.use('/booklending', booklendingRouter);
 app.use('/user', userRouter);
 app.use('/lendbook', lendbookRouter);
+app.use('/category', categoryRouter);
 
 app.listen(port, () => {
     console.log('server is running on port:' + port);
