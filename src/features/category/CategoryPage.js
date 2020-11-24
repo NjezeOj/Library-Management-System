@@ -1,26 +1,37 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
-import { nanoid } from '@reduxjs/toolkit'
-
-import { categoryAdded } from './categoriesSlice'
-import { CategoriesList} from './CategoriesList'
+import {unwrapResult} from '@reduxjs/toolkit'
+import { categoryAdded, addNewCategories } from './categoriesSlice'
+//import { CategoriesList} from './CategoriesList'
 
 
 export const CategoryPage = () => {
     const [category, setCategory] = useState('')
+    const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
     const dispatch = useDispatch()
 
-    const onSaveCategoryClicked = () => {
-        if (category){
-            dispatch(
-                categoryAdded({
-                    id: nanoid(),
-                    category
-                })
-            )
-            setCategory('')
+    const canSave = [category].every(Boolean) && addRequestStatus === 'idle'
+ 
+    const onSaveCategoryClicked = async () => {
+        if(canSave){
+            try{
+                setAddRequestStatus('pending')
+                const resultAction = await dispatch(
+                    addNewCategories(category)
+                )
+                unwrapResult(resultAction)
+                setCategory('')
+            } catch(err){
+                console.error('Failed to save the category: ', err)  
+            } finally{
+                setAddRequestStatus('idle')
+            }
         }
+        /*if (category){ when reducer and prepare callbacks are present
+            dispatch(categoryAdded(category))
+            setCategory('')
+        }*/
     }
     const onCategoryChanged = e => setCategory(e.target.value)
     return(
@@ -43,7 +54,7 @@ export const CategoryPage = () => {
                         placeholder="Enter Category Name" />
                 </div>
                 <div className="pt-6">
-                    <button type="button" onClick={onSaveCategoryClicked} className="border py-1 px-4 rounded focus:outline-none ">
+                    <button type="button" onClick={onSaveCategoryClicked} disabled={!canSave} className="border py-1 px-4 rounded focus:outline-none ">
                         Create
                     </button>
                 </div>
@@ -55,15 +66,9 @@ export const CategoryPage = () => {
                 <div className="border-b-2 border-teal-400 pb-4 pl-16">                                       
                 </div>                
             </div>
-            <CategoriesList />
+            
         </div>
         
         </>
-
-        
-
-        
-
-
     )
 }

@@ -1,6 +1,13 @@
 const router = require('express').Router();
 let Category = require("../schemas/Category");
 
+router.route('/').get((req, res) => {
+    Category.find()
+        .then(categories => res.json(categories))
+        .catch(err => res.status(400).json('Error: ' + err));
+
+});
+
 router.route('/register').post((req, res) => {
     const category = req.body.category;
     
@@ -14,5 +21,7 @@ router.route('/register').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 
 });
+
+
 
 module.exports = router;

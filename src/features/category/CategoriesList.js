@@ -1,18 +1,28 @@
-import React from 'react'
-import {useSelector} from 'react-redux'
+import React, { useEffect } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import { selectAllCategories, fetchCategories } from './categoriesSlice'
 
 export const CategoriesList = () => {
-    const categories = useSelector(state => state.categories)
+    const dispatch = useDispatch()
+    const categories = useSelector(selectAllCategories)
 
+    const categoryStatus = useSelector(state => state.categories.status)
+
+    useEffect(() => {
+        if(categoryStatus === 'idle'){
+            dispatch(fetchCategories())
+        }
+    }, [categoryStatus, dispatch])
     const renderedCategories = categories.map( category => (
-        <article key={category.id}>
+        <article key={category._id}>
             <h3>{category.category}</h3>    
         </article>
     ))
-    
+
     return (
         <section>
-            <h2>Posts</h2>
+            <h2>Categories</h2>
+            
             {renderedCategories}
         </section>
     )

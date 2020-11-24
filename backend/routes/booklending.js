@@ -1,6 +1,13 @@
 const router = require('express').Router();
 let BookLending = require('../schemas/BookLending');
 
+router.route('/').post((req, res) => {    
+    BookLending.find()
+        .then(policies => res.json(policies))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
 router.route('/policy').post((req, res) => {
     const maxnobooksstudent = req.body.maxnobooksstudent;
     const maxnobookslecturer = req.body.maxnobookslecturer;
