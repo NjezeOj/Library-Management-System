@@ -1,11 +1,11 @@
 const router = require('express').Router();
 let Book = require("../schemas/Book");
 
-/*router.route('/').get((req, res) => {
+router.route('/').get((req, res) => {
     Book.find()
         .then(books => res.json(books))
         .catch(err => res.status(400).json('Error: ' + err));
-});*/
+});
 
 router.route('/register').post((req, res) => {
     const category = req.body.category;

@@ -22,6 +22,14 @@ export const BookLending = () => {
 
     const canSave = [maxnobooksstudent, maxnobookslecturer, maxnodaysstudent, maxnodayslecturer, penaltystudent, penaltylecturer].every(Boolean) && addRequestStatus === 'idle'
 
+    const policy = {
+        maxnobooksstudent: maxnobooksstudent,
+        maxnobookslecturer: maxnobookslecturer,
+        maxnodaysstudent: maxnodaysstudent,
+        maxnodayslecturer: maxnodayslecturer,
+        penaltystudent: penaltystudent,
+        penaltylecturer: penaltylecturer
+    }
     const dispatch = useDispatch()
 
     const onSavePolicy = async () => {
@@ -30,7 +38,7 @@ export const BookLending = () => {
                 //console.log(maxnobooksstudent, maxnobookslecturer, maxnodaysstudent, maxnodayslecturer, penaltystudent, penaltylecturer)
                 setAddRequestStatus('pending')
                 const resultAction = await dispatch(
-                    addNewPolicies(maxnobooksstudent, maxnobookslecturer, maxnodaysstudent, maxnodayslecturer, penaltystudent, penaltylecturer)
+                    addNewPolicies(policy)
                 )
 
                 unwrapResult(resultAction)

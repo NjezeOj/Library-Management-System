@@ -13,16 +13,9 @@ export const fetchPolicies = createAsyncThunk('policy/fetchPolicies', async () =
 })//payload creator callback function
 
 export const addNewPolicies = createAsyncThunk('policy/addNewPolicy',
-    async (nobooksstudent, nobookslecturer, maxdaysstudent, maxdayslecturer, penstudent,penlecturer) => {
-        
-        const response = await axios.post('http://localhost:5000/booklending/policy', {
-            maxnobooksstudent: nobooksstudent,
-            maxnobookslecturer: nobookslecturer,
-            maxnodaysstudent: maxdaysstudent,
-            maxnodayslecturer: maxdayslecturer,
-            penaltystudent: penstudent,
-            penaltylecturer: penlecturer
-        })
+    async (policy) => {
+        //nobooksstudent, nobookslecturer, maxdaysstudent, maxdayslecturer, penstudent,penlecturer
+        const response = await axios.post('http://localhost:5000/booklending/policy', policy)
         return response.data
     })
 

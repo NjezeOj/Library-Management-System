@@ -1,4 +1,4 @@
-import {createSlice, nanoid, createAsyncThunk} from '@reduxjs/toolkit'
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios';
 
 const initialState = {
@@ -59,7 +59,7 @@ const categoriesSlice = createSlice({
     
 
 
-export const {categoryAdded} = categoriesSlice.actions
+//export const {categoryAdded} = categoriesSlice.actions
 
 export default categoriesSlice.reducer
 
