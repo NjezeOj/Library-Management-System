@@ -50,7 +50,7 @@ const booksSlice = createSlice({
             state.status = "failed"
             state.error = action.error.message
         },
-        [fetchBooks.fulfilled]: (state, action) => {
+        [addNewBooks.fulfilled]: (state, action) => {
             // Add the new post object to our posts array
             state.books.push(action.payload)
         }
@@ -63,7 +63,7 @@ const booksSlice = createSlice({
 
 export default booksSlice.reducer
 
-export const selectAllCategories = state => state.books.books
+export const selectAllBooks = state => state.books.books
 
 
 

@@ -18,7 +18,31 @@ export const BookTable = ({close}) => {
                         </svg>
                     </button>
                 </div>
+
+                <table>
+                    <tr>
+                        <th>Category</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Year of Publication</th>
+                        <th>Call Number</th>
+                        <th>Volume</th>
+                        <th>Size</th>
+                        <th>Qty</th>
+                    </tr>
+                    <tr>
+                        <td>bast</td>
+                        <td>bast</td>
+                        <td>bast</td>
+                        <td>bast</td>
+                        <td>bast</td>
+                        <td>bast</td>
+                        <td>bast</td>
+                        <td>bast</td>
+                    </tr>
+                </table>
             </div>
+
         </>
     )
 

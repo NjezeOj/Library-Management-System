@@ -13,7 +13,8 @@ export const CategoryPage = () => {
 
     const canSave = [category].every(Boolean) && addRequestStatus === 'idle'
  
-    const onSaveCategoryClicked = async () => {
+    const onSaveCategoryClicked = async (e) => {
+        e.preventDefault()
         if(canSave){
             try{
                 setAddRequestStatus('pending')

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {RegisterPopUp} from '../PopUps/RegisterPopUp'
 import Popup from 'reactjs-popup'
 import { selectAllCategories, fetchCategories} from  '../category/categoriesSlice'
-import {BookTable} from '../PopUps/BookTable'
+import {fetchBooks, selectAllBooks} from '../books/booksSlice'
+
 
 
 export const Books = () => {
@@ -11,21 +12,34 @@ export const Books = () => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [callnumber, setCallNumber] = useState('')
+    const [book, setBook] = useState({})
+    
 
     const onCategoryChanged = e => setCategory(e.target.value)
     const onTitleChanged = e => setTitle(e.target.value)
     const onAuthorChanged = e => setAuthor(e.target.value)
     const onCallNumberChanged = e => setCallNumber(e.target.value)
     
-    const categories = useSelector(selectAllCategories)
     const dispatch = useDispatch()
+    
+    const categories = useSelector(selectAllCategories)
+    const books = useSelector(selectAllBooks)
     const categoryStatus = useSelector(state => state.categories.status)
+    const bookStatus = useSelector(state => state.books.status)
+    
 
     useEffect(() => {
-        if (categoryStatus === 'idle') {
+        if (categoryStatus === 'idle' && bookStatus === 'idle' ) {
             dispatch(fetchCategories())
+            dispatch(fetchBooks())
         }
-    }, [categoryStatus, dispatch])
+    }, [categoryStatus, bookStatus, dispatch])
+
+    const onSearchBooks = (e) => {
+        e.preventDefault()       
+        var bookObject = books.filter(el => el.title === title)
+        setBook(...bookObject)
+    }
 
     return (       
             <>
@@ -50,7 +64,7 @@ export const Books = () => {
                             <option>Choose Category</option>
                             {
                                 categories.map(element => {
-                                    return <option key={category._id}  >{element.category}</option>
+                                    return <option key={category._id}>{element.category}</option>
                                 })
                             }
                         </select>
@@ -109,13 +123,12 @@ export const Books = () => {
 
                     <div className="pt-6">
                         
-                    <Popup modal trigger={<button className="border py-1 px-4 rounded focus:outline-none inline-flex items-center">
+                    <button onClick= {onSearchBooks} className="border py-1 px-4 rounded focus:outline-none inline-flex items-center">
                         <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
                         </svg>
                         <span>Search</span>
-                    </button>}>{close => <BookTable close={close} />}
-                        </Popup>
+                    </button>
                     </div>                                      
                 </div>
                 <Popup modal trigger={<button className="ml-48 mt-4 border py-1 px-4 rounded focus:outline-none inline-flex items-center">
@@ -162,6 +175,33 @@ export const Books = () => {
                     </div>
                     
                     <div className="border-b-2 border-teal-400 pb-4 pl-16">
+                    </div>
+
+                    <div className="grid grid-cols-8 divide-x divide-gray-400">
+                        <div className="pl-2">
+                            {book.category}
+                        </div>
+                        <div className="pl-2">
+                            {book.title}
+                        </div>
+                        <div className="pl-2">
+                            {book.author}
+                        </div>
+                        <div className="pl-2">
+                            {book.pubyear}
+                        </div>
+                        <div className="pl-2">
+                            {book.callnumber}
+                        </div>
+                        <div className="pl-2">
+                            {book.volume}
+                        </div>
+                        <div className="pl-2">
+                            {book.size}
+                        </div>
+                        <div className="pl-2">
+                            {book.quantity}
+                        </div>
                     </div>
                 </div>
             </>
