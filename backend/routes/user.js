@@ -17,15 +17,15 @@ router.route('/register').post((req, res) => {
     const address = req.body.address;
     const department = req.body.department;
     const phoneno = req.body.phoneno;    
-    //const bookdescription = [];
+    const bookdescription = [];
 
     let newUser = new User({
         regno,
         address,
         name,
         department,
-        phoneno
-        //bookdescription
+        phoneno,
+        bookdescription
         
     });
 
@@ -43,10 +43,10 @@ router.route('/lendbook/:id').post((req, res) => {
     const volume = req.body.volume;
     const size = req.body.size;
     const quantity = req.body.quantity;
-    //const lenddate = Date.parse(req.body.lenddate);
-    //const returndate = Date.parse(req.body.lenddate);
+    const lenddate = Date.parse(req.body.lenddate);
+    const returndate = Date.parse(req.body.lenddate);
     const hasitbeendreturned = req.body.hasitbeendreturned;
-    //const expectedreturndate = Date.parse(req.body.expectedreturndate);
+    const expectedreturndate = Date.parse(req.body.expectedreturndate);
     const borrowertype = req.body.borrowertype;
     const comments = req.body.comments;
     const logtype = req.body.logtype;
@@ -65,11 +65,11 @@ router.route('/lendbook/:id').post((req, res) => {
         volume,
         size,
         quantity,
-        // lenddate,
-        //returndate,
+        lenddate,
+        returndate,
         logtype,
         hasitbeendreturned,
-        //expectedreturndate,
+        expectedreturndate,
         borrowertype,
         comments,
         penalty,

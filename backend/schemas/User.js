@@ -29,6 +29,7 @@ let User = mongoose.Schema({
     bookdescription:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "lendbook", //it is lendbook not nook
+        required: false
     }]
 
 });

@@ -121,7 +121,7 @@ export const BookLending = () => {
                     </label>
                     <input className="appearance-none border rounded w-2/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                         id="penaltystudent" 
-                        ype="number" 
+                        type="number" 
                         value={penaltystudent}
                         onChange={onPenaltyStudent}
                         placeholder="Enter Amount To Pay If Returned Late" />

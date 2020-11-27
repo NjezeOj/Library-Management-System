@@ -4,14 +4,16 @@ import { Link } from "react-router-dom"
 
 export const Navbar = () => {    
     return(
-        <nav class=" text-white h-full bg-teal-400 fixed top-0 left-0 overflow-x-hidden w-40">
-            <div id="sidenav" class="flex flex-col items-center">
-                <div class="pt-8">
+        <nav className=" text-white h-full bg-teal-400 fixed top-0 left-0 overflow-x-hidden w-40">
+            <div id="sidenav" className="flex flex-col items-center">
+                <div className="pt-8">
                     <ul>
-                        <li class="text-xl pb-8">
+                        <li className="text-xl pb-8">
                             <Link to="/">BlueTag Library</Link>
                         </li>
-
+                        <li>
+                            <Link to="/user">Register User</Link>
+                        </li>
                         <li>
                             <Link to="/registercategory">Register Category</Link>
                         </li>
@@ -24,12 +26,7 @@ export const Navbar = () => {
                         <li>
                             <Link to="/lendreturn">Lend/Return Book</Link>
                         </li>
-                        <li>
-                            <Link>Borrowed Book Log</Link>
-                        </li>
-                        <li>
-                            <Link>Book Status</Link>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>

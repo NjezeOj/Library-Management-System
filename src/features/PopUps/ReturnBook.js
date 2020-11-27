@@ -9,7 +9,7 @@ export const ReturnBook = ({ close }) => {
                     <div className="flex text-black py-4 pl-8">
                         <p className="text-2xl -mt-2 font-bold">Return Books</p>
                     </div>
-                    <button class="focus:outline-none mr-8" onClick={close} >
+                    <button className="focus:outline-none mr-8" onClick={close} >
                         <svg className="fill-current w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
@@ -22,7 +22,7 @@ export const ReturnBook = ({ close }) => {
                 <form className="px-8 py-4 bg-gray-100">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="relative">
-                            <label className="block font-bold" for="regno">
+                            <label className="block font-bold" htmlFor="regno">
                                 Student Reg/Staff Number
                         </label>
                             <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="regno" type="text" placeholder="" />
@@ -32,7 +32,7 @@ export const ReturnBook = ({ close }) => {
                         </div>
 
                         <div className="relative">
-                            <label className="block font-bold" for="address">
+                            <label className="block font-bold" htmlFor="address">
                                 Address
                         </label>
                             <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" placeholder="" />
@@ -42,7 +42,7 @@ export const ReturnBook = ({ close }) => {
                         </div>
 
                         <div className="relative">
-                            <label className="block font-bold" for="name">
+                            <label className="block font-bold" htmlFor="name">
                                 Name
                         </label>
                             <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="" />
@@ -52,7 +52,7 @@ export const ReturnBook = ({ close }) => {
                         </div>
 
                         <div className="relative">
-                            <label className="block font-bold" for="phoneno">
+                            <label className="block font-bold" htmlFor="phoneno">
                                 Phone Number
                         </label>
                             <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phoneno" type="text" placeholder="" />
@@ -62,7 +62,7 @@ export const ReturnBook = ({ close }) => {
                         </div>
 
                         <div className="relative">
-                            <label className="block font-bold" for="department">
+                            <label className="block font-bold" htmlFor="department">
                                 Department
                             </label>
                             <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="department" type="text" placeholder="" />
@@ -74,12 +74,12 @@ export const ReturnBook = ({ close }) => {
                     
                     <div className="mt-10">
                         <p className="pb-1 font-bold">Book Description</p>
-                        <label class="flex justify-start items-start">
-                            <div class="bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
-                                <input type="checkbox" class="opacity-0 absolute"></input>
-                                <svg class="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z" /></svg>
+                        <label className="flex justify-start items-start">
+                            <div className="bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+                                <input type="checkbox" className="opacity-0 absolute"></input>
+                                <svg className="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z" /></svg>
                             </div>
-                            <div class="select-none">Label Text</div>
+                            <div className="select-none">Label Text</div>
                         </label>    
                     </div>
 

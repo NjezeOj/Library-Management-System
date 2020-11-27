@@ -9,7 +9,7 @@ export const LendReturn = () => {
         <>
             <div className="ml-40">
                 <div className="flex bg-teal-400 text-white py-4 pl-8">
-                    <svg class="fill w-6 h-6" xmlns="http://ww..org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="fill w-6 h-6" xmlns="http://ww..org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                     </svg>
                     <p className="text-2xl -mt-2">Filter</p>
@@ -17,7 +17,7 @@ export const LendReturn = () => {
             </div>
             <form className="ml-40 px-8 py-4 bg-gray-100 border-b-8 grid grid-cols-2  gap-4">
                 <div className="relative">
-                    <label className="block" for="title">
+                    <label className="block" htmlFor="title">
                         Title
                         </label>
                     <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="" />
@@ -27,7 +27,7 @@ export const LendReturn = () => {
                 </div>
 
                 <div className="relative">
-                    <label className="block" for="lenddate">
+                    <label className="block" htmlFor="lenddate">
                         Lend Date
                     </label>
                     <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lenddate" type="date" placeholder="" />
@@ -35,14 +35,14 @@ export const LendReturn = () => {
                 </div>
 
                 <div className="relative">
-                    <label className="block" for="returndate">
+                    <label className="block" htmlFor="returndate">
                         Return Date
                     </label>
                     <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="returndate" type="date" placeholder="" />
                 </div>
 
                 <div className="relative">
-                    <label className="block" for="regstaffno">
+                    <label className="block" htmlFor="regstaffno">
                         Reg/Staff No
                         </label>
                     <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="regstaffno" type="text" placeholder="" />
@@ -52,7 +52,7 @@ export const LendReturn = () => {
                 </div>
 
                 <div className="relative">
-                    <label className="block" for="callnumber">
+                    <label className="block" htmlFor="callnumber">
                         Call Number
                     </label>
                     <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="callnumber" type="text" placeholder="" />
@@ -61,11 +61,11 @@ export const LendReturn = () => {
                     </svg>
                 </div>
 
-                <div class="relative">
-                    <label class="block" for="hasbeenreturned">
+                <div className="relative">
+                    <label className="block" htmlFor="hasbeenreturned">
                         Has Been Returned?
                     </label>
-                    <select class="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                    <select className="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                         <option>New Mexico</option>
                         <option>Missouri</option>
                         <option>Texas</option>

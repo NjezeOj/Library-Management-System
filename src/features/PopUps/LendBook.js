@@ -4,7 +4,7 @@ import React from 'react'
 export const LendBook = ({ close }) => {
     return (
         <>
-            <div class="bg-white">
+            <div className="bg-white">
                 <div className="flex justify-between bg-teal-400">
                     <div className="flex text-black py-4 pl-8">
                         <svg className="fill-current w-6 h-6 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -12,7 +12,7 @@ export const LendBook = ({ close }) => {
                         </svg>
                         <p className="text-2xl -mt-2 font-bold">Lend Book</p>
                     </div>
-                    <button class="focus:outline-none mr-8" onClick={close} >
+                    <button className="focus:outline-none mr-8" onClick={close} >
                         <svg className="fill-current w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
@@ -23,11 +23,11 @@ export const LendBook = ({ close }) => {
                 </div>
 
                 <form className="px-8 py-4 grid grid-cols-2 gap-4">
-                    <div class="relative">
-                        <label class="block font-bold" for="category">
+                    <div className="relative">
+                        <label className="block font-bold" htmlFor="category">
                             Category
                         </label>
-                        <select class="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="category">
+                        <select className="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="category">
                             <option>New Mexico</option>
                             <option>Missouri</option>
                             <option>Texas</option>
@@ -38,7 +38,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="yearofpublication">
+                        <label className="block font-bold" htmlFor="yearofpublication">
                             Year Of Publication
                     </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="yearofpublication" type="text" placeholder="" />
@@ -48,7 +48,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="title">
+                        <label className="block font-bold" htmlFor="title">
                             Title
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="" />
@@ -58,7 +58,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="volume">
+                        <label className="block font-bold" htmlFor="volume">
                             Volume
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="volume" type="text" placeholder="" />
@@ -68,7 +68,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="callnumber">
+                        <label className="block font-bold" htmlFor="callnumber">
                             Call Number
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="callnumber" type="text" placeholder="" />
@@ -80,7 +80,7 @@ export const LendBook = ({ close }) => {
                    
 
                     <div className="relative">
-                        <label className="block font-bold" for="author">
+                        <label className="block font-bold" htmlFor="author">
                             Author
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="author" type="text" placeholder="" />
@@ -90,7 +90,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="size">
+                        <label className="block font-bold" htmlFor="size">
                             Size
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="size" type="text" placeholder="" />
@@ -100,7 +100,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="regno">
+                        <label className="block font-bold" htmlFor="regno">
                             Student Reg/Staff Number
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="regno" type="text" placeholder="" />
@@ -110,7 +110,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="name">
+                        <label className="block font-bold" htmlFor="name">
                             Name
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="" />
@@ -120,7 +120,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative font-bold">
-                        <label className="block" for="department">
+                        <label className="block" htmlFor="department">
                             Department
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="department" type="text" placeholder="" />
@@ -130,7 +130,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="phoneno">
+                        <label className="block font-bold" htmlFor="phoneno">
                             Phone Number
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phoneno" type="text" placeholder="" />
@@ -140,7 +140,7 @@ export const LendBook = ({ close }) => {
                     </div>
 
                     <div className="relative">
-                        <label className="block font-bold" for="duedateofreturn">
+                        <label className="block font-bold" htmlFor="duedateofreturn">
                             Due Date Of Return
                         </label>
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="duedateofreturn" type="date" placeholder="" />
