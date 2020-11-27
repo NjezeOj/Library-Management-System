@@ -18,6 +18,12 @@ export const addNewUsers = createAsyncThunk('users/addNewUsers',
         return response.data
     })
 
+/*export const lendBook = createAsyncThunk('users/lendBook',
+    async (initialBooks,id) => {
+        const response = await axios.post(`http://localhost:5000/user/register/${id}`, initialBooks)
+        return response.data
+})*/
+
 
 const usersSlice = createSlice({
     name: 'users',
@@ -32,7 +38,7 @@ const usersSlice = createSlice({
         [fetchUsers.fulfilled]: (state, action) => {
             state.status = "succeeded"
             // Add any fetched posts to the array
-            state.categories = state.users.concat(action.payload)
+            state.users = state.users.concat(action.payload)
         },
         [fetchUsers.rejected]: (state, action) => {
             state.status = "failed"
@@ -42,6 +48,7 @@ const usersSlice = createSlice({
             // Add the new post object to our posts array
             state.users.push(action.payload)
         }
+
     }
 })
 

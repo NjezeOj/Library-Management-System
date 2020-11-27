@@ -16,6 +16,7 @@ router.route('/register').post((req, res) => {
     const volume = req.body.volume;
     const size = req.body.size;
     const quantity = req.body.quantity;
+    const hasitbeenlended = false;
     /*const lenddate = req.body.lenddate;
     const returndate = req.body.lenddate;
     const hasitbeendreturned = req.body.hasitbeendreturned;
@@ -33,7 +34,8 @@ router.route('/register').post((req, res) => {
         pubyear,
         volume,
         size,
-        quantity
+        quantity,
+        hasitbeenlended
        /* lenddate,
         returndate,
         hasitbeendreturned,

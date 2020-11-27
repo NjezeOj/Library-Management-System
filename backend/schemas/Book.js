@@ -41,6 +41,11 @@ let BookSchema = mongoose.Schema({
     quantity: {
         type: Number,
         required: true
+    },
+
+    hasitbeenlended: {
+        type: Boolean,
+        required: false
     }
 
 })

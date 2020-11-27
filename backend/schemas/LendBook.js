@@ -38,11 +38,6 @@ let LendBookSchema = mongoose.Schema({
         required: true
     },
 
-    quantity: {
-        type: Number,
-        required: true
-    },
-
     lenddate: {
         type: Date,
         required: false

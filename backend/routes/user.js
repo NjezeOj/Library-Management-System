@@ -42,7 +42,7 @@ router.route('/lendbook/:id').post((req, res) => {
     const pubyear = req.body.pubyear;
     const volume = req.body.volume;
     const size = req.body.size;
-    const quantity = req.body.quantity;
+    
     const lenddate = Date.parse(req.body.lenddate);
     const returndate = Date.parse(req.body.lenddate);
     const hasitbeendreturned = req.body.hasitbeendreturned;
@@ -64,7 +64,6 @@ router.route('/lendbook/:id').post((req, res) => {
         pubyear,
         volume,
         size,
-        quantity,
         lenddate,
         returndate,
         logtype,
