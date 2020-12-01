@@ -26,19 +26,7 @@ const booksSlice = createSlice({
     name: 'books',
     initialState,
     reducers: {
-        /*categoryAdded: {
-            reducer(state, action){
-                state.categories.push(action.payload)
-            }, 
-            prepare(category){
-                return{
-                    payload:{
-                        //id: nanoid(),
-                        category
-                    } 
-                }
-            }
-        }*/
+        
     },
     extraReducers: {
         [fetchBooks.pending]: (state, action) => {
