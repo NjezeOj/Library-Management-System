@@ -18,11 +18,11 @@ export const addNewUsers = createAsyncThunk('users/addNewUsers',
         return response.data
     })
 
-/*export const lendBook = createAsyncThunk('users/lendBook',
+export const lendBook = createAsyncThunk('users/lendBook',
     async (initialBooks,id) => {
         const response = await axios.post(`http://localhost:5000/user/register/${id}`, initialBooks)
         return response.data
-})*/
+})
 
 
 const usersSlice = createSlice({
