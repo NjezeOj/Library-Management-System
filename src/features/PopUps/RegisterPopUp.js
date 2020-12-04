@@ -40,7 +40,7 @@ export const RegisterPopUp = ({close}) => {
 
         title: title,
 
-        callnumber: callnumber ,
+        callnumber: callnumber,
 
         author: author,
 
