@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
 export const ReturnBook = ({ close }) => {
+    let [lentbook, setLentBook] = useState(true)
+    const onSetReturnedBook = () => {
+        if(lentbook){
+            setLentBook(false)
+        } else {
+            setLentBook(true)
+        }
+        
+        console.log(lentbook)
+    }
     return (
         <>
             <div class="bg-gray-100">
@@ -76,11 +86,30 @@ export const ReturnBook = ({ close }) => {
                         <p className="pb-1 font-bold">Book Description</p>
                         <label className="flex justify-start items-start">
                             <div className="bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
-                                <input type="checkbox" className="opacity-0 absolute"></input>
+                                <input 
+
+                                    onClick={onSetReturnedBook} 
+                                    type="checkbox" 
+                                    className="opacity-0 absolute"></input>
                                 <svg className="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z" /></svg>
                             </div>
                             <div className="select-none">Label Text</div>
                         </label>    
+                    </div>
+
+                    <div className="mt-10">
+                        <p className="pb-1 font-bold">Book Description</p>
+                        <label className="flex justify-start items-start">
+                            <div className="bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+                                <input
+
+                                    onClick={onSetReturnedBook}
+                                    type="checkbox"
+                                    className="opacity-0 absolute"></input>
+                                <svg className="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z" /></svg>
+                            </div>
+                            <div className="select-none">Label Text</div>
+                        </label>
                     </div>
 
                     <button className="mt-6 border py-1 px-4 rounded focus:outline-none">
