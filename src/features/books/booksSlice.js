@@ -18,7 +18,11 @@ export const addNewBooks = createAsyncThunk('books/addNewBooks',
         return response.data
     })
 
-
+export const hasBookBeenLended = createAsyncThunk('books/editBooks',
+    async (bookLendedBoolean, id) => {
+        const response = await axios.post(`http://localhost:5000/book/register/${id}`, bookLendedBoolean)
+        return response.data
+    })
 
 
 
