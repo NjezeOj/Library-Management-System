@@ -43,15 +43,15 @@ router.route('/lendbook/:id').post((req, res) => {
     const volume = req.body.volume;
     const size = req.body.size;
     
+    
     const lenddate = Date.parse(req.body.lenddate);
-    const returndate = Date.parse(req.body.lenddate);
-    const hasitbeendreturned = req.body.hasitbeendreturned;
+    const returndate = Date.parse(req.body.returndate);    
     const expectedreturndate = Date.parse(req.body.expectedreturndate);
     const borrowertype = req.body.borrowertype;
     const comments = req.body.comments;
     const logtype = req.body.logtype;
     const penalty = req.body.penalty;
-    const defaultdedays = req.body.defaultdedays;
+    const defaulteddays = req.body.defaulteddays;
 
 
     //const bast = req.body;
@@ -67,12 +67,11 @@ router.route('/lendbook/:id').post((req, res) => {
         lenddate,
         returndate,
         logtype,
-        hasitbeendreturned,
         expectedreturndate,
         borrowertype,
         comments,
         penalty,
-        defaultdedays
+        defaulteddays
 
     });
 
@@ -87,15 +86,6 @@ router.route('/lendbook/:id').post((req, res) => {
 router.route('/oneuser/:id').get(async(req, res) => {
     let lendbook = await User.findById({ _id: req.params.id }).populate("bookdescription");   
     res.json(lendbook);
-
-    /*User.findById(req.params.id)
-        .then(user => {
-            let bast = user.populate("bookdescription");
-            res.json(bast);
-            
-        })
-        .catch(err => res.status(400).json('Error: ' + err))*/
-
 });
 
 //write code to edit and delete book description
