@@ -13,7 +13,7 @@ let BookSchema = mongoose.Schema({
     },
 
     callnumber: {  //primarykey
-        type: Number,
+        type: String,
         required: true
     },
 
