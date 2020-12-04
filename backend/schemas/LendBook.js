@@ -3,39 +3,39 @@ const mongoose = require('mongoose')
 let LendBookSchema = mongoose.Schema({
     category: {
         type: String,
-        required: true
+        required: false
     },
 
     title: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
 
     callnumber: {  //primarykey
-        type: Number,
-        required: true
+        type: String,
+        required: false
     },
 
     author: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
 
     pubyear: {
         type: Number,
-        required: true
+        required: false
     },
 
     volume: {
         type: String,
-        required: true
+        required: false
     },
 
     size: {
         type: String,
-        required: true
+        required: false
     },
 
     lenddate: {
@@ -45,13 +45,9 @@ let LendBookSchema = mongoose.Schema({
 
     returndate: {
         type: Date,
-        required: true
-    },
-
-    hasitbeenreturned: {
-        type: Boolean,
         required: false
     },
+
 
     logtype: {
         type: Boolean,
@@ -89,8 +85,6 @@ let LendBookSchema = mongoose.Schema({
         ref: "user"
     }*/
 
-}, {
-    timestamps: true
 })
 
 module.exports = mongoose.model('lendbook', LendBookSchema)
