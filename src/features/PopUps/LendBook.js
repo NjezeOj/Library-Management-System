@@ -1,89 +1,101 @@
 import React, {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {selectAllCategories, fetchCategories} from '../category/categoriesSlice'
-import {selectAllUsers, fetchUsers} from '../User/UserSlice'
+import {selectAllUsers, fetchUsers, lendBook} from '../User/UserSlice'
+import {selectAllBooks, fetchBooks, hasBookBeenLended} from '../books/booksSlice'
+import axios from 'axios'
+import { unwrapResult } from '@reduxjs/toolkit'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
 
 
 export const LendBook = ({ close }) => {
-    const [category, setCategory] = useState('')
-    const [title, setTitle] = useState('')
-    const [callnumber, setCallNumber] = useState('')
-    const [author, setAuthor] = useState('')
-    const [pubyear, setPubYear] = useState('')
-    const [volume, setVolume] = useState('')
-    const [size, setSize] = useState('')
-    const [user, setUser] = useState({})    
+    
+    const [callnumber, setCallNumber] = useState('')   
     const [regno, setRegNo] = useState('')
-    
-    /*const [name, setName] = useState('')
-    const [department, setDepartment] = useState('')
-    const [phoneno, setPhoneNo] = useState('')*/
-    const [returndate, setReturnDate] = useState('')
-
-    const onCategoryChanged = e => setCategory(e.target.value)
-    const onTitleChanged = e => setTitle(e.target.value)
-    const onCallNumberChanged = e => setCallNumber(e.target.value)
-    const onAuthorChanged = e => setAuthor(e.target.value)
-    const onPubYearChanged = e => setPubYear(e.target.value)
-    const onVolumeChanged = e => setVolume(e.target.value)
-    const onSizeChanged = e => setSize(e.target.value)
-    
-    const onSetReturnDate = (e) => setReturnDate(e.target.value)
-
-    //const onSetName = (e) => setName(e.target.value)
-    //const onSetDepartment = (e) => setDepartment(e.target.value)
-    //const onSetPhoneNo = (e) => setPhoneNo(e.target.value)
+    const [returndate, setReturnDate] = useState(new Date())
+    const [user, setUser] = useState({})
+    const [book, setBook] = useState({})   
+    const [lenddate] = useState(new Date())
 
     
+
     const dispatch = useDispatch()
-    const categories = useSelector(selectAllCategories)
+    
     const users = useSelector(selectAllUsers)
-    const categoryStatus = useSelector(state=>state.categories.status)
+    const books = useSelector(selectAllBooks)
     const userStatus = useSelector(state => state.users.status)
+    const bookStatus = useSelector(state => state.books.status)
 
     
     
+    const onCallNumberChanged = e => setCallNumber(e.target.value)    
+    const onSetReturnDate = (e) => setReturnDate(e.target.value)
+    const onSetRegNo = (e) => setRegNo(e.target.value) 
 
-    const onSetRegNo = (e) => {
-        setRegNo(e.target.value)
-        
-    }
-    /*function nameSetter() {
+    const onSearchCallNo = (e) => {
+        e.preventDefault()
+        var bookObject = books.filter(el => el.callnumber === callnumber)
+        setBook(...bookObject)
+    } 
+
+    const onSearchRegNo = (e) => {
+        e.preventDefault()
         var userObject = users.filter(el => el.regno === regno)
         setUser(...userObject)
-    }*/
-    
-
-    const onLog = (e) => {
-        e.preventDefault()
-        console.log(users)
-        var userObject = users.filter(el => el.regno === regno) 
-        console.log(...userObject)
-        setUser(...userObject)
-        console.log(user._id)
     }
+    
     useEffect(() => {
-        if (userStatus === 'idle' && categoryStatus === 'idle' ) {
-            dispatch(fetchCategories())
+        if (userStatus === 'idle' && bookStatus === 'idle' ) {
             dispatch(fetchUsers())
+            dispatch(fetchBooks())
         }
-    }, [categoryStatus,userStatus, dispatch])
+    }, [userStatus, bookStatus, dispatch])
 
-    const lendbook = {
-        category: category,
+    let lendbook = {
+        category: book.category,
 
-        title: title ,
+        title: book.title,
 
         callnumber: callnumber,
 
-        author: author,
+        author: book.author,
 
-        pubyear: pubyear,
+        pubyear: book.pubyear,
 
-        volume: volume,
+        volume: book.volume,
 
-        size: size,
+        size: book.size,
+
+        expectedreturndate: returndate,
+
+        lenddate: lenddate,
+
+        returndate: lenddate,
+
+        logtype: null,
+
+        borrowertype: null,
+
+        comments: null,
+
+        penalty:null,
+
+        defaulteddays: null
     }
+
+    const hasbookbeenlended = {
+        hasitbeenlended: true
+    }
+
+    const onLendBook = async () => {
+        axios.post(`http://localhost:5000/user/lendbook/${user._id}`, lendbook)
+            .then(res => console.log(res.data));
+
+        axios.post(`http://localhost:5000/book/update/${book._id}`, hasbookbeenlended)
+            .then(res => console.log(res.json))
+        
+    }
+    
 
     return (
         <>
@@ -110,22 +122,32 @@ export const LendBook = ({ close }) => {
                         <label className="block font-bold" htmlFor="category">
                             Category
                         </label>
-                        <select className="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        <input className="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             name="category"
                             id="category"
                             type="text"
-                            value={category}
-                            onChange={onCategoryChanged}>
-                                <option>Choose Category</option>
-                            {
-                                categories.map(element => {
-                                    return <option key={category._id}>{element.category}</option>
-                                })
-                            }
-                        </select>
-                        <div>
-                            <svg className="text-black absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                        </div>
+                            value={book.category}
+                            disabled
+                            placeholder="Auto-Generated">
+                        </input>
+                    </div>
+
+                    <div className="relative">
+                        <label className="block font-bold" htmlFor="callnumber">
+                            Call Number
+                        </label>
+                        <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="callnumber"
+                            name="callnumber"
+                            value={callnumber}
+                            onChange={onCallNumberChanged}
+                            type="text"
+                            placeholder="Search CallNumber" />
+                        <button onClick={onSearchCallNo} class="absolute right-0 mr-2 mt-2 focus:outline-none">
+                            <svg className="fill-current text-teal-400 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                            </svg>                            
+                        </button>                        
                     </div>
 
                     <div className="relative">
@@ -135,10 +157,10 @@ export const LendBook = ({ close }) => {
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                             id="pubyear"
                             name="pubyear"
-                            value={pubyear}
-                            onChange={onPubYearChanged}
+                            value={book.pubyear}
                             type="number" 
-                            placeholder="" />
+                            placeholder="Auto-Generated" 
+                            disabled/>
                         <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
                         </svg>
@@ -151,10 +173,10 @@ export const LendBook = ({ close }) => {
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                             id="title"
                             name="title"
-                            value={title}
-                            onChange={onTitleChanged}
+                            value={book.title}
                             type="text" 
-                            placeholder="" />
+                            placeholder="Auto-Generated" 
+                            disabled/>
                         <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
                         </svg>
@@ -167,33 +189,15 @@ export const LendBook = ({ close }) => {
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                             id="volume"
                             name="volume"
-                            value={volume}
-                            onChange={onVolumeChanged}
+                            value={book.volume}
                             type="text"
-                            placeholder="" />
+                            placeholder="Auto-Generated" 
+                            disabled/>
                         <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
                         </svg>
                     </div>
-
-                    <div className="relative">
-                        <label className="block font-bold" htmlFor="callnumber">
-                            Call Number
-                        </label>
-                        <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                            id="callnumber"
-                            name="callnumber"
-                            value={callnumber}
-                            onChange={onCallNumberChanged}
-                            type="number" 
-                            placeholder="" />
-                        <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-
                    
-
                     <div className="relative">
                         <label className="block font-bold" htmlFor="author">
                             Author
@@ -201,10 +205,10 @@ export const LendBook = ({ close }) => {
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                             id="author"
                             name="author"
-                            value={author}
-                            onChange={onAuthorChanged}
+                            value={book.author}
                             type="text"
-                            placeholder="" />
+                            placeholder="Auto-Generated" 
+                            disabled/>
                         <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
                         </svg>
@@ -217,10 +221,10 @@ export const LendBook = ({ close }) => {
                         <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                             id="size"
                             name="size"
-                            value={size}
-                            onChange={onSizeChanged}
+                            value={book.size}
                             type="text" 
-                            placeholder="" />
+                            placeholder="Auto-Generated" 
+                            disabled/>
                         <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
                         </svg>
@@ -230,15 +234,18 @@ export const LendBook = ({ close }) => {
                         <label className="block font-bold" htmlFor="regno">
                             Student Reg/Staff Number
                         </label>
-                        <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="regno"
                             value={regno}
                             onChange={onSetRegNo}
-                            type="text" 
-                            placeholder="Reg./Staff Number" />
-                        <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
-                        </svg>
+                            type="text"
+                            placeholder="Search ID. Number" />
+                        
+                        <button onClick={onSearchRegNo} class="absolute right-0 mr-2 mt-2 focus:outline-none">
+                            <svg className="fill-current text-teal-400 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                            </svg>
+                        </button>     
                     </div>
 
                     <div className="relative">
@@ -291,12 +298,10 @@ export const LendBook = ({ close }) => {
                         <label className="block font-bold" htmlFor="duedateofreturn">
                             Due Date Of Return
                         </label>
-                        <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                            id="duedateofreturn" 
-                            type="date"
-                            value={returndate}
-                            onChange={onSetReturnDate}  
-                            placeholder="" />
+                        <DatePicker
+                            selected={returndate}
+                            onchange={onSetReturnDate}
+                        />
                     </div>
                     <div></div>
 
@@ -305,7 +310,7 @@ export const LendBook = ({ close }) => {
                             <span>Cancel</span>
                         </button>
 
-                        <button onClick={onLog} className="border py-1 px-4 rounded focus:outline-none inline-flex items-center">
+                        <button onClick={onLendBook} className="border py-1 px-4 rounded focus:outline-none inline-flex items-center">
                             <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                             <span>Search</span>
                         </button>
