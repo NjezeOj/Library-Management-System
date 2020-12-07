@@ -78,7 +78,13 @@ let LendBookSchema = mongoose.Schema({
     defaulteddays: {
         type: Number,
         required: false
+    },
+
+    hasitbeenreturned: {
+        type: Boolean,
+        required: false
     }
+
 
     /*user:{
         type: mongoose.Schema.Types.ObjectId,

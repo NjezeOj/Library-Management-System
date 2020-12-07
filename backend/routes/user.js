@@ -52,6 +52,7 @@ router.route('/lendbook/:id').post((req, res) => {
     const logtype = req.body.logtype;
     const penalty = req.body.penalty;
     const defaulteddays = req.body.defaulteddays;
+    const hasitbeenreturned = req.body.hasitbeenreturned;
 
 
     //const bast = req.body;
@@ -71,7 +72,8 @@ router.route('/lendbook/:id').post((req, res) => {
         borrowertype,
         comments,
         penalty,
-        defaulteddays
+        defaulteddays,
+        hasitbeenreturned
 
     });
 
