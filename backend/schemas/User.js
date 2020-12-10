@@ -30,7 +30,12 @@ let User = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "lendbook", //it is lendbook not nook
         required: false
-    }]
+    }],
+
+    borrowertype: {
+        type: String,
+        required: true
+    }
 
 });
 

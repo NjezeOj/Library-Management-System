@@ -4,6 +4,7 @@ import categoriesReducer from '../features/category/categoriesSlice';
 import policiesReducer from '../features/booklending/bookLendingSlice';
 import booksReducer from '../features/books/booksSlice';
 import usersReducer from '../features/User/UserSlice'
+import lendBooksReducer from '../features/lendbook/lendBookSlice'
 
 export default configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export default configureStore({
     categories: categoriesReducer,
     policies: policiesReducer,
     books: booksReducer,
-    users: usersReducer
+    users: usersReducer,
+    lendbooks: lendBooksReducer
 
   }
 });

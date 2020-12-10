@@ -8,6 +8,7 @@ import {BookLending} from "./features/booklending/BookLending"
 import {Books} from "./features/books/Books"
 import {LendReturn} from "./features/books/LendReturn"
 import {User} from './features/User/User'
+import NotFound from './app/NotFound'
 
 function App() {
   return (   
@@ -23,7 +24,7 @@ function App() {
         <Route exact path="/registerbook" component={Books} />
         <Route exact path="/lendreturn" component={LendReturn} />
         <Route exact path='/user' component={User} />
-        
+        <Route component={NotFound} />
       </Switch>      
     </Router>
     

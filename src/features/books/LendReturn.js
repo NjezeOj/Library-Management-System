@@ -1,10 +1,48 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { LendBook } from '../PopUps/LendBook'
 import { ReturnBook } from '../PopUps/ReturnBook'
 import Popup from 'reactjs-popup'
-
+import { useDispatch, useSelector } from 'react-redux'
+import {fetchLendBooks, selectAllLendBooks} from '../lendbook/lendBookSlice'
+import DatePicker from 'react-datepicker'
 
 export const LendReturn = () => {
+    const [callno, setCallNo] = useState('')
+    const [lendbook, setLendBook] = useState({})
+    const [hasbeenreturned, setHasBeenReturned] = useState('')
+    
+    
+    
+
+    const dispatch = useDispatch()
+    const lendBookStatus = useSelector(state => state.lendbooks.status)
+    const lendBooks = useSelector(selectAllLendBooks)
+
+    const onCallNoChanged = e => setCallNo(e.target.value)
+    
+    
+
+    useEffect(() => {
+        if(lendBookStatus === 'idle')
+            dispatch(fetchLendBooks())
+    }, [dispatch, lendBookStatus])
+
+    
+    const onClickSearch = (e) => {
+        e.preventDefault()
+        
+        var lendBookObject = lendBooks.filter(el => el.callnumber === callno)
+
+        if (lendBookObject.length === 1 ){
+            setLendBook(...lendBookObject)
+            setHasBeenReturned('No')
+        } else {
+            alert("BOOK HAS BEEN RETURNED OR DOESN'T EXIST")
+        }
+        
+            
+    }
+
     return (
         <>
             <div className="ml-40">
@@ -19,8 +57,14 @@ export const LendReturn = () => {
                 <div className="relative">
                     <label className="block" htmlFor="title">
                         Title
-                        </label>
-                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="" />
+                    </label>
+                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        id="title" 
+                        disabled
+                        type="text" 
+                        value={ lendbook.title  }
+                        
+                        placeholder="" />
                     <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
                     </svg>
@@ -30,7 +74,12 @@ export const LendReturn = () => {
                     <label className="block" htmlFor="lenddate">
                         Lend Date
                     </label>
-                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lenddate" type="date" placeholder="" />
+                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="lenddate"
+                        type=""
+                        disabled
+                        value={lendbook.lenddate}
+                        placeholder="" />
                     
                 </div>
 
@@ -38,14 +87,24 @@ export const LendReturn = () => {
                     <label className="block" htmlFor="returndate">
                         Return Date
                     </label>
-                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="returndate" type="date" placeholder="" />
+                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        id="returndate" 
+                        type=""
+                        disabled
+                        value={lendbook.expectedreturndate}
+                        placeholder="" />
                 </div>
 
                 <div className="relative">
                     <label className="block" htmlFor="regstaffno">
                         Reg/Staff No
                         </label>
-                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="regstaffno" type="text" placeholder="" />
+                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        id="regstaffno" 
+                        type="text" 
+                        disabled
+                        value={lendbook.regno}
+                        placeholder="" />
                     <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
                     </svg>
@@ -55,28 +114,40 @@ export const LendReturn = () => {
                     <label className="block" htmlFor="callnumber">
                         Call Number
                     </label>
-                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="callnumber" type="text" placeholder="" />
+                    <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        id="callnumber" 
+                        type="text"
+                        value={callno}
+                        onChange={onCallNoChanged}
+                        placeholder="Input Call Number" />
                     <svg className="text-teal-400 absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
                     </svg>
                 </div>
 
-                <div className="relative">
+                <div></div>
+                
+
+                {/*<div className="relative">
                     <label className="block" htmlFor="hasbeenreturned">
                         Has Been Returned?
                     </label>
                     <select className="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                        <option>New Mexico</option>
-                        <option>Missouri</option>
-                        <option>Texas</option>
+                        name="hasbeenreturned"
+                        id="hasbeenreturned"
+                        value={hasbeenreturned} 
+                        <option>Yes</option>
+                        <option>No</option>
                     </select>
                     <div>
                         <svg className="text-black absolute right-0 mr-2 -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                     </div>
-                </div>
+    </div>*/}
+
+                
 
                 <div className="pt-6">
-                    <button className="border py-1 px-4 rounded focus:outline-none inline-flex items-center">
+                    <button onClick={onClickSearch} className="border py-1 px-4 rounded focus:outline-none inline-flex items-center">
                         <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
                         </svg>
@@ -99,8 +170,8 @@ export const LendReturn = () => {
             </button>}>{close => <ReturnBook close={close} />}</Popup>
 
 
-            <div className="ml-40 bg-gray-100 py-4">
-                <div className="grid grid-cols-14 divide-x divide-gray-400">
+            <div className="ml-40 bg-gray-100 py-4 border-b-2 border-t-2 border-teal-400">
+                <div className="grid grid-cols-7 divide-x divide-gray-400">
                     <div className="pl-2">
                         Category
                         </div>
@@ -126,8 +197,44 @@ export const LendReturn = () => {
 
                     <div className="pl-2">
                         Size
+                        </div>                    
+                </div>
+                <div className="grid grid-cols-7 divide-x divide-gray-400">
+                    <div className="pl-2">
+                        {lendbook.category}
+                        </div>
+                    <div className="pl-2">
+                        {lendbook.title}
+                        </div>
+                
+                    <div className="pl-2">
+                        {lendbook.callnumber}
+                    </div>
+
+                    <div className="pl-2">
+                        {lendbook.author}
                         </div>
 
+                    <div className="pl-2">
+                        {lendbook.pubyear}
+                        </div>
+
+                    <div className="pl-2">
+                        {lendbook.volume}
+                        </div>
+
+                    <div className="pl-2">
+                        {lendbook.size}
+                </div>
+                </div>
+
+
+                <div className="border-b-2 border-teal-400  pl-16">
+                </div>
+
+
+
+                <div className="grid grid-cols-7 divide-x divide-gray-400">
                     <div className="pl-2">
                         Reg/staff No.
                     </div>
@@ -150,9 +257,32 @@ export const LendReturn = () => {
                         Comments
                     </div>
                 </div>
-
-                <div className="border-b-2 border-teal-400 pb-4 pl-16">
+                
+                <div className="grid grid-cols-7 divide-x divide-gray-400">
+                    <div className="pl-2">
+                        {lendbook.regno}
+                    </div>
+                    <div className="pl-2">
+                        {lendbook.lenddate}
+                    </div>
+                    <div className="pl-2">
+                        {lendbook.expectedreturndate}
+                    </div>
+                    <div className="pl-2">
+                        {hasbeenreturned}
+                    </div>
+                    <div className="pl-2">
+                        {lendbook.returndate}
+                    </div>
+                    <div className="pl-2">
+                        {lendbook.borrowertype}
+                    </div>
+                    <div className="pl-2">
+                        
+                    </div>
                 </div>
+                
+                
             </div>
         </>
 

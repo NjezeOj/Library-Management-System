@@ -38,7 +38,8 @@ export const Books = () => {
     const onSearchBooks = (e) => {
         e.preventDefault()       
         var bookObject = books.filter(el => el.title === title)
-        setBook(...bookObject)
+        return bookObject.length === 1 ? setBook(...bookObject) : console.log('Error')
+
     }
 
     return (       
@@ -61,7 +62,7 @@ export const Books = () => {
                             id="category"    
                             value={category}                                      
                             onChange={onCategoryChanged}>                            
-                            <option>Choose Category</option>
+                            <option disabled>Choose Category</option>
                             {
                                 categories.map(element => {
                                     return <option key={category._id}>{element.category}</option>

@@ -50,7 +50,9 @@ export const RegisterPopUp = ({close}) => {
 
         size: size,
 
-        quantity: quantity
+        quantity: quantity,
+
+        hasitbeenlended: false
 
     }
 
@@ -77,7 +79,7 @@ export const RegisterPopUp = ({close}) => {
 
     return (
         <>
-            <div class="bg-white">
+            <div className="bg-white">
                 <div className="flex justify-between">
                     <div className="flex text-black py-4 pl-8">
                         <svg className="fill-current w-6 h-6 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -96,17 +98,17 @@ export const RegisterPopUp = ({close}) => {
                 </div>
 
                 <form className="px-8 py-4 grid grid-cols-2 gap-4">
-                    <div class="relative">
-                        <label class="block" htmlFor="category">
+                    <div className="relative">
+                        <label className="block" htmlFor="category">
                             Category
                         </label>
-                        <select class="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                        <select className="block appearance-none w-full border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                             name="category"
                             id="category"
                             type="text"
                             value={category} 
                             onChange={onCategoryChanged}>
-                                <option>Choose Category</option>
+                            <option disabled>Choose Category</option>
                             {                                
                                 categories.map(element => {
                                     return <option key={category._id}>{element.category}</option>

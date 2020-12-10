@@ -83,6 +83,11 @@ let LendBookSchema = mongoose.Schema({
     hasitbeenreturned: {
         type: Boolean,
         required: false
+    },
+
+    regno: {
+        type: String,
+        required: true
     }
 
 

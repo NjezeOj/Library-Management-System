@@ -16,7 +16,8 @@ router.route('/register').post((req, res) => {
     const name = req.body.name;
     const address = req.body.address;
     const department = req.body.department;
-    const phoneno = req.body.phoneno;    
+    const phoneno = req.body.phoneno;  
+    const borrowertype = req.body.borrowertype;  
     const bookdescription = [];
 
     let newUser = new User({
@@ -25,7 +26,8 @@ router.route('/register').post((req, res) => {
         name,
         department,
         phoneno,
-        bookdescription
+        bookdescription,
+        borrowertype
         
     });
 
@@ -53,6 +55,7 @@ router.route('/lendbook/:id').post((req, res) => {
     const penalty = req.body.penalty;
     const defaulteddays = req.body.defaulteddays;
     const hasitbeenreturned = req.body.hasitbeenreturned;
+    const regno = req.body.regno;
 
 
     //const bast = req.body;
@@ -73,7 +76,8 @@ router.route('/lendbook/:id').post((req, res) => {
         comments,
         penalty,
         defaulteddays,
-        hasitbeenreturned
+        hasitbeenreturned,
+        regno
 
     });
 
@@ -89,6 +93,15 @@ router.route('/oneuser/:id').get(async(req, res) => {
     let lendbook = await User.findById({ _id: req.params.id }).populate("bookdescription");   
     res.json(lendbook);
 });
+
+router.route('/:id').post(async (req, res) => {
+    
+    const bast = req.body.id
+    await User.findOneAndUpdate({ _id: req.params.id }, { $pull: { bookdescription: bast } })
+        .then(() => res.status(200).json('Book Deleted!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+
+})
 
 //write code to edit and delete book description
 

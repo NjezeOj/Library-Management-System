@@ -10,6 +10,7 @@ export const User = () => {
     const [regno, setRegNo] = useState('')
     const [department, setDepartment] = useState('')
     const [phoneno, setPhoneNo] = useState('')
+    const [borrowertype, setBorrowerType] = useState('')
     const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
     const dispatch = useDispatch()
@@ -17,17 +18,19 @@ export const User = () => {
     const onSetName = (e) => setName(e.target.value)
     const onSetAddress = (e) => setAddress(e.target.value)
     const onSetRegNo = (e) => setRegNo(e.target.value)
-    const onSetDepartment= (e) => setDepartment(e.target.value)
+    const onSetDepartment = (e) => setDepartment(e.target.value)
     const onSetPhoneNo = (e) => setPhoneNo(e.target.value)
+    const onSetBorrowerType = (e) => setBorrowerType(e.target.value)
 
     const canSave = [name, address, regno, department, phoneno].every(Boolean) && addRequestStatus === 'idle'
-
+    const borrowerTypes = ["Student", "Lecturer"]
     const user = {
         name: name,
         address: address,
         regno: regno,
         department: department,
         phoneno: phoneno,
+        borrowertype: borrowertype
     }
     const onSaveUserClicked = async (e) => {
         e.preventDefault()
@@ -43,6 +46,7 @@ export const User = () => {
                 setRegNo('')
                 setDepartment('')
                 setPhoneNo('')
+                setBorrowerType('')
 
             } catch(err){
                 console.log("user not save", err)
@@ -96,6 +100,32 @@ export const User = () => {
                         type="text"
                         placeholder="Enter Registration Number" />
                 </div>
+                
+                <div className="relative pt-4 w-2/5">
+                    <label className="block font-bold pl-3" htmlFor="borrowertype">
+                        BorrowerType
+                    </label>
+                    <select className="block appearance-none w-full border border-gray-300 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        name="borrowertype"
+                        id="borrowertype"
+                        type="text"
+                        value={borrowertype}
+                        onChange={onSetBorrowerType}>
+                        <option disabled>Choose a BorrowerType</option>
+                        {
+                            borrowerTypes.map(element => {
+                                return <option>{element}</option>
+                            })
+                        }
+                        
+                    </select>
+
+                    <div class="absolute right-0 ">
+                        <svg className="text-black -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                    </div>
+                </div>
+
+
 
                 <div className="pt-4">
                     <label className="block font-bold pl-3" htmlFor="department">

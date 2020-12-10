@@ -26,8 +26,9 @@ export const ReturnBook = ({ close }) => {
     const searchRegNo = async (e) => {
         e.preventDefault()
         const userObject = users.filter(user => user.regno === regno)
-        setUser(...userObject)
-        //console.log(user)
+                
+        return userObject.length === 1 ? setUser(...userObject) : console.log('Error')
+
     }
 
     const getLentBooks = async(e) => {
@@ -44,23 +45,36 @@ export const ReturnBook = ({ close }) => {
         lentbooks.forEach(lentbook => {
             if(lentbook.title === e.target.value){
                 lentbook.hasitbeenreturned = e.target.checked                
-            }
-            else {
-
-            }
+            }    
             
         })
         console.log(lentbooks)
     }
 
+    const onReturnBook = () => {
+        
+        lentbooks.forEach(lentbook => {
+            const lendBookId = {
+                id: lentbook._id
+            }
+            
+            if(lentbook.hasitbeenreturned){
+                axios.post(`http://localhost:5000/user/${user._id}`, lendBookId)
+                    .then(res => console.log(res.json));
+
+                axios.delete(`http://localhost:5000/lendbook/${lentbook._id}`)
+                    .then(res => console.log(res.json));
+            }
+        })
+    }
+
     const bookList = lentbooks.map(lentbook => (
-        <label className="flex justify-start items-start" key={lentbook._id}>
+        <label className="flex justify-start items-start mt-2" key={lentbook._id}>
             <div className="bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
                 <input
                     onClick={onSelectLentBook}
                     type="checkbox"
-                    value={lentbook.title}
-                    checked={lentbook.hasitbeenreturned}
+                    value={lentbook.title}                    
                     className="opacity-0 absolute"></input>
                 <svg className="fill-current hidden w-4 h-4 text-green-500 pointer-events-none" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z" /></svg>
             </div>
@@ -69,7 +83,7 @@ export const ReturnBook = ({ close }) => {
     
     ))
 
-    //gety
+    
     return (
         <>
             <div class="bg-gray-100">
@@ -98,7 +112,7 @@ export const ReturnBook = ({ close }) => {
                                 type="text" 
                                 value={regno}
                                 onChange = {onSetRegNo}
-                                placeholder="" />
+                                placeholder="Input RegNo." />
                             <button onClick={searchRegNo} class="absolute right-0 mr-2 mt-2 focus:outline-none">
                                 <svg className="fill-current text-teal-400 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
@@ -176,7 +190,7 @@ export const ReturnBook = ({ close }) => {
                         {bookList}
                     </div>
                     
-                    <button className="mt-6 border py-1 px-4 rounded focus:outline-none">
+                    <button onClick={onReturnBook} className="mt-6 border py-1 px-4 rounded focus:outline-none">
                         <span>Return</span>
                     </button>
                     

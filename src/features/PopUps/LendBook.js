@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import {selectAllUsers, fetchUsers, lendBook} from '../User/UserSlice'
 import {selectAllBooks, fetchBooks, hasBookBeenLended} from '../books/booksSlice'
 import axios from 'axios'
-import { unwrapResult } from '@reduxjs/toolkit'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -35,13 +34,15 @@ export const LendBook = ({ close }) => {
     const onSearchCallNo = (e) => {
         e.preventDefault()
         var bookObject = books.filter(el => el.callnumber === callnumber)
-        setBook(...bookObject)
+        
+        return bookObject.length === 1 ? setBook(...bookObject) : console.log('Error')
     } 
 
     const onSearchRegNo = (e) => {
         e.preventDefault()
         var userObject = users.filter(el => el.regno === regno)
-        setUser(...userObject)
+        setUser(...userObject)    //write the axios.get
+        return userObject.length === 1 ? setUser(...userObject) : console.log('Error')
     }
     
     useEffect(() => {
@@ -72,9 +73,11 @@ export const LendBook = ({ close }) => {
 
         returndate: lenddate,
 
+        regno: regno,
+
         logtype: null,
 
-        borrowertype: null,
+        borrowertype: user.borrowertype,
 
         comments: null,
 
@@ -91,11 +94,14 @@ export const LendBook = ({ close }) => {
     }
 
     const onLendBook = async () => {
+        
+        //if(user.borrowertype === 'Student' && user.bookdescr) //I AM HERE
         axios.post(`http://localhost:5000/user/lendbook/${user._id}`, lendbook)
             .then(res => console.log(res.data));
 
         axios.post(`http://localhost:5000/book/update/${book._id}`, hasbookbeenlended)
             .then(res => console.log(res.json))
+        console.log(user.bookdescription)
         
     }
     
