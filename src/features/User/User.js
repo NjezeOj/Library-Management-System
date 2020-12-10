@@ -22,7 +22,7 @@ export const User = () => {
     const onSetPhoneNo = (e) => setPhoneNo(e.target.value)
     const onSetBorrowerType = (e) => setBorrowerType(e.target.value)
 
-    const canSave = [name, address, regno, department, phoneno].every(Boolean) && addRequestStatus === 'idle'
+    const canSave = [name, address, regno, department, phoneno, borrowertype].every(Boolean) && addRequestStatus === 'idle'
     const borrowerTypes = ["Student", "Lecturer"]
     const user = {
         name: name,
@@ -34,6 +34,7 @@ export const User = () => {
     }
     const onSaveUserClicked = async (e) => {
         e.preventDefault()
+        
         if(canSave){
             try{
                 setAddRequestStatus('pending')
@@ -111,10 +112,10 @@ export const User = () => {
                         type="text"
                         value={borrowertype}
                         onChange={onSetBorrowerType}>
-                        <option disabled>Choose a BorrowerType</option>
+                        <option value="">Choose a BorrowerType</option>
                         {
                             borrowerTypes.map(element => {
-                                return <option>{element}</option>
+                                return <option >{element}</option>
                             })
                         }
                         

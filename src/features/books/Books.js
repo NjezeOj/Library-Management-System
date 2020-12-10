@@ -62,7 +62,7 @@ export const Books = () => {
                             id="category"    
                             value={category}                                      
                             onChange={onCategoryChanged}>                            
-                            <option disabled>Choose Category</option>
+                            <option value="">Choose Category</option>
                             {
                                 categories.map(element => {
                                     return <option key={category._id}>{element.category}</option>
