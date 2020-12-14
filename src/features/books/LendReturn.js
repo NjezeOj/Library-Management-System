@@ -4,23 +4,17 @@ import { ReturnBook } from '../PopUps/ReturnBook'
 import Popup from 'reactjs-popup'
 import { useDispatch, useSelector } from 'react-redux'
 import {fetchLendBooks, selectAllLendBooks} from '../lendbook/lendBookSlice'
-import DatePicker from 'react-datepicker'
 
 export const LendReturn = () => {
     const [callno, setCallNo] = useState('')
     const [lendbook, setLendBook] = useState({})
-    const [hasbeenreturned, setHasBeenReturned] = useState('')
-    
-    
-    
+    const [hasbeenreturned, setHasBeenReturned] = useState('')   
 
     const dispatch = useDispatch()
     const lendBookStatus = useSelector(state => state.lendbooks.status)
     const lendBooks = useSelector(selectAllLendBooks)
 
-    const onCallNoChanged = e => setCallNo(e.target.value)
-    
-    
+    const onCallNoChanged = e => setCallNo(e.target.value)   
 
     useEffect(() => {
         if(lendBookStatus === 'idle')
@@ -228,11 +222,8 @@ export const LendReturn = () => {
                 </div>
                 </div>
 
-
                 <div className="border-b-2 border-teal-400  pl-16">
                 </div>
-
-
 
                 <div className="grid grid-cols-7 divide-x divide-gray-400">
                     <div className="pl-2">

@@ -33,7 +33,7 @@ const bookLendingSlice = createSlice({
         [fetchPolicies.fulfilled]: (state, action) => {
             state.status = "succeeded"
             // Add any fetched posts to the array
-            state.categories = state.policies.concat(action.payload)
+            state.policies = state.policies.concat(action.payload)
         },
         [fetchPolicies.rejected]: (state, action) => {
             state.status = "failed"
@@ -49,7 +49,7 @@ const bookLendingSlice = createSlice({
 
 export default bookLendingSlice.reducer
 
-export const selectAllCategories = state => state.policies.policies
+export const selectAllPolicies = state => state.policies.policies
 
 
 

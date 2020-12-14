@@ -16,8 +16,6 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
-        
-
         <Route exact path="/" component={HomePage} />
         <Route exact path="/registercategory" component={CategoryPage} />
         <Route exact path="/policy" component={BookLending} />

@@ -1,34 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {fetchUsers,selectAllUsers} from '../User/UserSlice'
+import { selectAllBooks, fetchBooks} from '../books/booksSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 
 export const ReturnBook = ({ close }) => {
-    let [lentbooks, setLentBooks] = useState([])
-    let [regno, setRegNo] = useState("")
-    let [user, setUser] = useState({})
-    let [lentbook, setLentBook] = useState(true)
-    
+    const [lentbooks, setLentBooks] = useState([])
+    const [regno, setRegNo] = useState("")
+    const [user, setUser] = useState({})
     const onSetRegNo = e => setRegNo(e.target.value)
 
     const dispatch = useDispatch()
 
     const users = useSelector(selectAllUsers)
+    const books = useSelector(selectAllBooks)
     const usersStatus = useSelector(state => state.users.status)
-
+    const bookStatus = useSelector(state => state.books.status)
+    
 
     useEffect(() => {
-        if(usersStatus === "idle")
+        if (usersStatus === "idle" && bookStatus === "idle"){
             dispatch(fetchUsers())
-    }, [usersStatus, dispatch]) 
+            dispatch(fetchBooks())
+        }           
+    }, [usersStatus, bookStatus, dispatch]) 
 
     const searchRegNo = async (e) => {
         e.preventDefault()
+        
         const userObject = users.filter(user => user.regno === regno)
-                
-        return userObject.length === 1 ? setUser(...userObject) : console.log('Error')
 
+        return userObject.length === 1 ? setUser(...userObject) : console.log('Error')        
+        
     }
 
     const getLentBooks = async(e) => {
@@ -37,7 +41,7 @@ export const ReturnBook = ({ close }) => {
             .then( res => {
                 var books = res.data.bookdescription
                 setLentBooks(books)
-                console.log(lentbooks)
+                //console.log(lentbooks)
             })
     }
 
@@ -48,22 +52,36 @@ export const ReturnBook = ({ close }) => {
             }    
             
         })
-        console.log(lentbooks)
+        //console.log(lentbooks)
     }
 
-    const onReturnBook = () => {
-        
+    const hasbookbeenlended = {
+        hasitbeenlended: false
+    }
+
+    const onReturnBook = (e) => {
+        e.preventDefault()
+
         lentbooks.forEach(lentbook => {
+
+
             const lendBookId = {
                 id: lentbook._id
             }
             
+            const bookObject = books.filter(book => book.title === lentbook.title)
+            var book = [...bookObject]
+                       
+
             if(lentbook.hasitbeenreturned){
                 axios.post(`http://localhost:5000/user/${user._id}`, lendBookId)
                     .then(res => console.log(res.json));
 
                 axios.delete(`http://localhost:5000/lendbook/${lentbook._id}`)
                     .then(res => console.log(res.json));
+
+                axios.post(`http://localhost:5000/book/update/${book[0]._id}`, hasbookbeenlended)
+                    .then(res => console.log(res.json))
             }
         })
     }

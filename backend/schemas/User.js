@@ -35,6 +35,11 @@ let User = mongoose.Schema({
     borrowertype: {
         type: String,
         required: true
+    },
+
+    count: {
+        type: Number,
+        required: false
     }
 
 });

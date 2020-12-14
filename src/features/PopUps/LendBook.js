@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {selectAllUsers, fetchUsers, lendBook} from '../User/UserSlice'
-import {selectAllBooks, fetchBooks, hasBookBeenLended} from '../books/booksSlice'
+import {selectAllUsers, fetchUsers} from '../User/UserSlice'
+import {selectAllBooks, fetchBooks} from '../books/booksSlice'
+import {selectAllPolicies, fetchPolicies} from '../booklending/bookLendingSlice'
 import axios from 'axios'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
@@ -13,17 +14,20 @@ export const LendBook = ({ close }) => {
     const [regno, setRegNo] = useState('')
     const [returndate, setReturnDate] = useState(new Date())
     const [user, setUser] = useState({})
-    const [book, setBook] = useState({})   
-    const [lenddate] = useState(new Date())
+    const [book, setBook] = useState({})
+    const [policy, setPolicy] = useState({})
+       
+    const [lenddate] = useState(new Date())   
 
-    
 
     const dispatch = useDispatch()
     
     const users = useSelector(selectAllUsers)
     const books = useSelector(selectAllBooks)
+    const policies = useSelector(selectAllPolicies)
     const userStatus = useSelector(state => state.users.status)
     const bookStatus = useSelector(state => state.books.status)
+    const policyStatus = useSelector(state => state.policies.status )
 
     
     
@@ -41,16 +45,17 @@ export const LendBook = ({ close }) => {
     const onSearchRegNo = (e) => {
         e.preventDefault()
         var userObject = users.filter(el => el.regno === regno)
-        setUser(...userObject)    //write the axios.get
+            //write the axios.get
         return userObject.length === 1 ? setUser(...userObject) : console.log('Error')
     }
     
     useEffect(() => {
-        if (userStatus === 'idle' && bookStatus === 'idle' ) {
+        if (userStatus === 'idle' && bookStatus === 'idle' && policyStatus === "idle" ) {
             dispatch(fetchUsers())
             dispatch(fetchBooks())
+            dispatch(fetchPolicies())
         }
-    }, [userStatus, bookStatus, dispatch])
+    }, [userStatus, policyStatus, bookStatus, dispatch])
 
     let lendbook = {
         category: book.category,
@@ -93,15 +98,38 @@ export const LendBook = ({ close }) => {
         hasitbeenlended: true
     }
 
-    const onLendBook = async () => {
-        
-        //if(user.borrowertype === 'Student' && user.bookdescr) //I AM HERE
+
+
+    const onLendBook = async (e) => {
+        e.preventDefault()
+        //|| (user.borrowertype === 'Lecturer' && user.count <= policies[0].maxnobookslecturer)
+        //console.log(policies[0].maxnobooksstudent)
+        if ((user.borrowertype === 'Student' && user.count < policies[0].maxnobooksstudent) || (user.borrowertype === 'Lecturer' && user.count <= policies[0].maxnobookslecturer)){
+            
+            var count = user.count
+            count++
+            
+            axios.post(`http://localhost:5000/user/lendbook/${user._id}`, lendbook)
+                .then(res => console.log(res.data));
+
+            axios.post(`http://localhost:5000/book/update/${book._id}`, hasbookbeenlended)
+                .then(res => console.log(res.json))
+
+            axios.post(`http://localhost:5000/user/count/${user._id}`, count)
+                .then(res => console.log(res.data));
+
+            
+        } else {
+            alert(`You Can't Lend More Books`)
+        }
+
+        /*//if(user.borrowertype === 'Student' && user.bookdescr) //I AM HERE
         axios.post(`http://localhost:5000/user/lendbook/${user._id}`, lendbook)
             .then(res => console.log(res.data));
 
         axios.post(`http://localhost:5000/book/update/${book._id}`, hasbookbeenlended)
             .then(res => console.log(res.json))
-        console.log(user.bookdescription)
+        //console.log(user.bookdescription)*/
         
     }
     
@@ -330,11 +358,6 @@ export const LendBook = ({ close }) => {
                 </div>
             </div>
         </>
-
-
-
-
-
 
     )
 }

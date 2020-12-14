@@ -19,6 +19,7 @@ router.route('/register').post((req, res) => {
     const phoneno = req.body.phoneno;  
     const borrowertype = req.body.borrowertype;  
     const bookdescription = [];
+    const count = req.body.count;
 
     let newUser = new User({
         regno,
@@ -27,7 +28,8 @@ router.route('/register').post((req, res) => {
         department,
         phoneno,
         bookdescription,
-        borrowertype
+        borrowertype,
+        count
         
     });
 
@@ -100,6 +102,21 @@ router.route('/:id').post(async (req, res) => {
     await User.findOneAndUpdate({ _id: req.params.id }, { $pull: { bookdescription: bast } })
         .then(() => res.status(200).json('Book Deleted!'))
         .catch(err => res.status(400).json('Error: ' + err));
+
+})
+
+router.route('/count/:id').post(async (req, res) => {
+    User.findById(req.params.id)
+        .then(user => {
+            user.count = req.body.count
+
+            user.save()
+                .then(() => res.json('Count has been increased'))
+                .catch(err => res.status(400).json('Error:' + err))
+
+        })
+        .catch(err => res.status(400).json('Error:' + err))
+    
 
 })
 

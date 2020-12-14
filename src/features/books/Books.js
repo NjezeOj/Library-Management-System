@@ -144,7 +144,7 @@ export const Books = () => {
                 
                 <div className="ml-40 bg-gray-100 py-4">
                     <div className="grid grid-cols-8 divide-x divide-gray-400">
-                        <div className="pl-10">
+                        <div className="pl-2">
                             Category
                         </div>
                         <div className="pl-2">

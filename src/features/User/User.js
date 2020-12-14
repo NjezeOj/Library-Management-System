@@ -30,10 +30,11 @@ export const User = () => {
         regno: regno,
         department: department,
         phoneno: phoneno,
-        borrowertype: borrowertype
+        borrowertype: borrowertype,
+        count: 0
     }
     const onSaveUserClicked = async (e) => {
-        e.preventDefault()
+        //e.preventDefault()
         
         if(canSave){
             try{
@@ -114,19 +115,17 @@ export const User = () => {
                         onChange={onSetBorrowerType}>
                         <option value="">Choose a BorrowerType</option>
                         {
-                            borrowerTypes.map(element => {
-                                return <option >{element}</option>
+                            borrowerTypes.map((element, index) => {
+                                return <option key={index}>{element}</option>
                             })
                         }
                         
                     </select>
 
-                    <div class="absolute right-0 ">
+                    <div className="absolute right-0 ">
                         <svg className="text-black -mt-8 fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                     </div>
                 </div>
-
-
 
                 <div className="pt-4">
                     <label className="block font-bold pl-3" htmlFor="department">

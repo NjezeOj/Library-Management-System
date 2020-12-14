@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import {useDispatch} from 'react-redux'
-import { addNewPolicies} from './bookLendingSlice'
+import React, { useState, useEffect } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import { fetchPolicies, addNewPolicies, selectAllPolicies} from './bookLendingSlice'
 import {unwrapResult} from '@reduxjs/toolkit'
+import axios from 'axios'
 
 
 export const BookLending = () => {
@@ -20,6 +21,10 @@ export const BookLending = () => {
     const onPenaltyStudent = e => setPenaltyStudent(e.target.value)
     const onPenaltyLecturer = e => setPenaltyLecturer(e.target.value)
 
+    const policies = useSelector(selectAllPolicies)
+    const policyStatus = useSelector(state => state.policies.status)
+    const dispatch = useDispatch()
+
     const canSave = [maxnobooksstudent, maxnobookslecturer, maxnodaysstudent, maxnodayslecturer, penaltystudent, penaltylecturer].every(Boolean) && addRequestStatus === 'idle'
 
     const policy = {
@@ -30,10 +35,14 @@ export const BookLending = () => {
         penaltystudent: penaltystudent,
         penaltylecturer: penaltylecturer
     }
-    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        if(policyStatus === 'idle'){
+            dispatch(fetchPolicies())
+        }        
+    }, [policyStatus, dispatch])
 
-    const onSavePolicy = async (e) => {
-        e.preventDefault()
+    const onSavePolicy = async() => {
         if(canSave){
             try{
                 //console.log(maxnobooksstudent, maxnobookslecturer, maxnodaysstudent, maxnodayslecturer, penaltystudent, penaltylecturer)
@@ -50,6 +59,11 @@ export const BookLending = () => {
                 setMaxNoDaysLecturer('')
                 setPenaltyStudent('')
                 setPenaltyLecturer('')
+
+                if(policies.length === 1){
+                    axios.delete(`http://localhost:5000/booklending/${policies[0]._id}`)
+                        .then(res => console.log(res.json));
+                }
                 
             } catch(err){
                 console.log("Failed to save policy:" , err)
@@ -57,6 +71,7 @@ export const BookLending = () => {
             finally{
                 setAddRequestStatus('idle')
             }
+            
         }
     }
 
