@@ -63,7 +63,7 @@ export const User = () => {
     return(
         <div className="ml-40">
             <div className="bg-teal-400 text-white pt-2 pb-2">
-                <p className="text-2xl pl-4">Book Lending Policy</p>
+                <p className="text-2xl pl-4">Register User</p>
             </div>
             <form className="pt-10 pl-4 pb-2 bg-gray-100 border-b-8">
                 <div>

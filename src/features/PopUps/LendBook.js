@@ -102,8 +102,6 @@ export const LendBook = ({ close }) => {
 
     const onLendBook = async (e) => {
         e.preventDefault()
-        //|| (user.borrowertype === 'Lecturer' && user.count <= policies[0].maxnobookslecturer)
-        //console.log(policies[0].maxnobooksstudent)
         if ((user.borrowertype === 'Student' && user.count < policies[0].maxnobooksstudent) || (user.borrowertype === 'Lecturer' && user.count <= policies[0].maxnobookslecturer)){
             
             var count = user.count
@@ -123,14 +121,6 @@ export const LendBook = ({ close }) => {
             alert(`You Can't Lend More Books`)
         }
 
-        /*//if(user.borrowertype === 'Student' && user.bookdescr) //I AM HERE
-        axios.post(`http://localhost:5000/user/lendbook/${user._id}`, lendbook)
-            .then(res => console.log(res.data));
-
-        axios.post(`http://localhost:5000/book/update/${book._id}`, hasbookbeenlended)
-            .then(res => console.log(res.json))
-        //console.log(user.bookdescription)*/
-        
     }
     
 
