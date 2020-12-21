@@ -59,8 +59,8 @@ export const ReturnBook = ({ close }) => {
         hasitbeenlended: false
     }
 
-    const onReturnBook = (e) => {
-        e.preventDefault()
+    const onReturnBook = () => {
+        
 
         lentbooks.forEach(lentbook => {
 
