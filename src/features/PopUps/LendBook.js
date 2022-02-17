@@ -13,9 +13,19 @@ export const LendBook = ({ close }) => {
     const [callnumber, setCallNumber] = useState('')   
     const [regno, setRegNo] = useState('')
     const [returndate, setReturnDate] = useState(new Date())
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({
+        _id : "",
+        regno : "",
+        address : "",
+        name : "",
+        department : "",
+        phoneno : "",
+        bookdescription : [],
+        borrowertype : "",
+        count : ""
+    })
     const [book, setBook] = useState({})
-    const [policy, setPolicy] = useState({})
+    //const [policy, setPolicy] = useState({})
        
     const [lenddate] = useState(new Date())   
 
@@ -31,8 +41,7 @@ export const LendBook = ({ close }) => {
 
     
     
-    const onCallNumberChanged = e => setCallNumber(e.target.value)    
-    const onSetReturnDate = (e) => setReturnDate(e.target.value)
+    const onCallNumberChanged = e => setCallNumber(e.target.value)
     const onSetRegNo = (e) => setRegNo(e.target.value) 
 
     const onSearchCallNo = (e) => {
@@ -76,7 +85,7 @@ export const LendBook = ({ close }) => {
 
         lenddate: lenddate,
 
-        returndate: lenddate,
+        /* returndate: null, */
 
         regno: regno,
 
@@ -90,35 +99,53 @@ export const LendBook = ({ close }) => {
 
         defaulteddays: null,
 
-        hasitbeenreturned: false
+        /* hasitbeenreturned: false */
 
     }
 
-    const hasbookbeenlended = {
+    /* const hasbookbeenlended = {
         hasitbeenlended: true
-    }
+    } */
 
 
 
     const onLendBook = async (e) => {
-        
-        if ((user.borrowertype === 'Student' && user.count < policies[0].maxnobooksstudent) || (user.borrowertype === 'Lecturer' && user.count <= policies[0].maxnobookslecturer)){
-            
-            var count = user.count
-            count++
-            
-            axios.post(`http://localhost:5000/user/lendbook/${user._id}`, lendbook)
-                .then(res => console.log(res.data));
+        try{
+            if ((user.borrowertype === 'Student' && user.count < policies[0].maxnobooksstudent && book.quantity > 0) || (user.borrowertype === 'Lecturer' && user.count <= policies[0].maxnobookslecturer && book.quantity > 0)) {
+                console.log(book._id)
 
-            axios.post(`http://localhost:5000/book/update/${book._id}`, hasbookbeenlended)
-                .then(res => console.log(res.json))
+                var count = user.count
+                count += 1
+                var bookQuantity = book.quantity
+                bookQuantity -= 1
 
-            axios.post(`http://localhost:5000/user/count/${user._id}`, count)
-                .then(res => console.log(res.data));
+                const increaseCount = {
+                    counter: count
+                }
 
-            
-        } else {
-            alert(`You Can't Lend More Books`)
+                const reduceQuantity = {
+                    quantify: bookQuantity
+                }
+
+                axios.post(`http://localhost:5000/user/lendbook/${user._id}`, lendbook)
+                    .then(res => console.log(res.data));
+
+                axios.post(`http://localhost:5000/book/update/${book._id}`, reduceQuantity)
+                    .then(res => console.log(res.data));
+
+                axios.post(`http://localhost:5000/user/count/${user._id}`, increaseCount)
+                    .then(res => console.log(res.data));
+
+                alert("Book has been lended")
+
+            }
+
+            else {
+                alert("You can't lend more books")
+            }
+        }
+        catch (e){
+            console.log(e)
         }
 
     }
@@ -327,7 +354,7 @@ export const LendBook = ({ close }) => {
                         </label>
                         <DatePicker
                             selected={returndate}
-                            onchange={onSetReturnDate}
+                            onChange = {(date) => setReturnDate(date)}
                         />
                     </div>
                     <div></div>
