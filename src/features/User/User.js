@@ -31,10 +31,11 @@ export const User = () => {
         department: department,
         phoneno: phoneno,
         borrowertype: borrowertype,
-        count: 0
+        count: 0,
+        penalty: 0
     }
     const onSaveUserClicked = async (e) => {
-        //e.preventDefault()
+        e.preventDefault()
         
         if(canSave){
             try{
