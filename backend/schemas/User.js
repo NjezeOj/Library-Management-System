@@ -40,6 +40,11 @@ let User = mongoose.Schema({
     count: {
         type: Number,
         required: false
+    },
+
+    penalty: {
+        type: Number,
+        required: false
     }
 
 });
