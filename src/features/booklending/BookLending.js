@@ -42,7 +42,8 @@ export const BookLending = () => {
         }        
     }, [policyStatus, dispatch])
 
-    const onSavePolicy = async() => {
+    const onSavePolicy = async(e) => {
+        e.preventDefault()
         if(canSave){
             try{
                 //console.log(maxnobooksstudent, maxnobookslecturer, maxnodaysstudent, maxnodayslecturer, penaltystudent, penaltylecturer)
