@@ -43,10 +43,10 @@ let LendBookSchema = mongoose.Schema({
         required: false
     },
 
-    returndate: {
+    /* returndate: {
         type: Date,
         required: false
-    },
+    }, */
 
 
     logtype: {
@@ -80,10 +80,10 @@ let LendBookSchema = mongoose.Schema({
         required: false
     },
 
-    hasitbeenreturned: {
+    /* hasitbeenreturned: {
         type: Boolean,
         required: false
-    },
+    }, */
 
     regno: {
         type: String,
