@@ -16,7 +16,7 @@ router.route('/register').post((req, res) => {
     const volume = req.body.volume;
     const size = req.body.size;
     const quantity = req.body.quantity;
-    const hasitbeenlended = false;
+    
 
     const newBook = new Book({ 
         category,
@@ -26,8 +26,7 @@ router.route('/register').post((req, res) => {
         pubyear,
         volume,
         size,
-        quantity,
-        hasitbeenlended
+        quantity
      });
 
     newBook.save()
@@ -35,10 +34,10 @@ router.route('/register').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));    
 });
 
-router.route('/update/:id').post((req, res) => {
+router.route('/update/:id').post(async(req, res) => {
     Book.findById(req.params.id)
         .then( book => {
-            book.hasitbeenlended = req.body.hasitbeenlended
+            book.quantity = req.body.quantify
             
             book.save()
             .then(() => res.json('Book has been lended'))
