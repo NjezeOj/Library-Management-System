@@ -49,14 +49,14 @@ router.route('/lendbook/:id').post((req, res) => {
     
     
     const lenddate = Date.parse(req.body.lenddate);
-    const returndate = Date.parse(req.body.returndate);    
+    /* const returndate = Date.parse(req.body.returndate);   */  
     const expectedreturndate = Date.parse(req.body.expectedreturndate);
     const borrowertype = req.body.borrowertype;
     const comments = req.body.comments;
     const logtype = req.body.logtype;
     const penalty = req.body.penalty;
     const defaulteddays = req.body.defaulteddays;
-    const hasitbeenreturned = req.body.hasitbeenreturned;
+    //const hasitbeenreturned = req.body.hasitbeenreturned;
     const regno = req.body.regno;
 
 
@@ -71,14 +71,14 @@ router.route('/lendbook/:id').post((req, res) => {
         volume,
         size,
         lenddate,
-        returndate,
+        /* returndate, */
         logtype,
         expectedreturndate,
         borrowertype,
         comments,
         penalty,
         defaulteddays,
-        hasitbeenreturned,
+        /* hasitbeenreturned, */
         regno
 
     });
@@ -98,8 +98,8 @@ router.route('/oneuser/:id').get(async(req, res) => {
 
 router.route('/:id').post(async (req, res) => {
     
-    const bast = req.body.id
-    await User.findOneAndUpdate({ _id: req.params.id }, { $pull: { bookdescription: bast } })
+    const book = req.body.id
+    await User.findOneAndUpdate({ _id: req.params.id }, { $pull: { bookdescription: book } })
         .then(() => res.status(200).json('Book Deleted!'))
         .catch(err => res.status(400).json('Error: ' + err));
 
@@ -108,7 +108,7 @@ router.route('/:id').post(async (req, res) => {
 router.route('/count/:id').post(async (req, res) => {
     User.findById(req.params.id)
         .then(user => {
-            user.count = req.body.count
+            user.count = req.body.counter
 
             user.save()
                 .then(() => res.json('Count has been increased'))
